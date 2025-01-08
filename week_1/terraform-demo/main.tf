@@ -8,14 +8,14 @@ terraform {
 }
 
 provider "google" {
-  credentials = "./keys/creds.json" # you can also use GOOGLE_APPLICATION_CREDENTIALS env variable
-  project = "terraform-demo-447113"
-  region  = "asia-southeast2"
+  credentials = file(var.credentials) # you can also use GOOGLE_APPLICATION_CREDENTIALS env variable
+  project     = var.project             # your project id seen in the GCP console
+  region      = var.region
 }
 
 resource "google_storage_bucket" "demo-bucket" {
-  name          = "terraform-demo-447113-terra-bucket" # must be unique across your gcp account
-  location      = "asia-southeast2"
+  name          = var.gcs_bucket_name # must be unique across your gcp account
+  location      = var.location
   force_destroy = true
 
   lifecycle_rule {
@@ -26,4 +26,9 @@ resource "google_storage_bucket" "demo-bucket" {
       type = "AbortIncompleteMultipartUpload"
     }
   }
+}
+
+resource "google_bigquery_dataset" "demo-dataset" {
+  dataset_id = var.bq_dataset_name
+  location   = var.location
 }
