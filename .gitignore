@@ -1,10 +1,13 @@
 # For Ingestion Script
-week_1/.ipynb_checkpoints/
-week_1/yellow_tripdata_2021-01.csv
-week_1/yellow_tripdata_2021-01.csv.gz
+notes/week_1/.ipynb_checkpoints/
+notes/week_1/yellow_tripdata_2021-01.csv
+notes/week_1/yellow_tripdata_2021-01.csv.gz
 
-week_1/ny_taxi_postgres_data/*
-!week_1/ny_taxi_postgres_data/
+notes/week_1/ny_taxi_postgres_data/*
+!notes/week_1/ny_taxi_postgres_data/
+
+# For python
+.venv/
 
 # For terraform
 # Local .terraform directories
