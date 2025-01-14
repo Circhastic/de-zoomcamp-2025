@@ -26,20 +26,11 @@ docker run -it \
 ```
 
 ### Question 3 - Trip segemntation count
-
-
 ```sql
-SELECT 
-	count(*) 
-FROM 
-	public.green_taxi_trips
-WHERE 
-	lpep_pickup_datetime::date = '2019-09-18'
-AND 
-	lpep_dropoff_datetime::date = '2019-09-18';
+hey man
 ```
 
-Answer: `15612`
+Answer: `In Progress`
 
 ### Question 4 - Longest trip for each day
 ```sql
