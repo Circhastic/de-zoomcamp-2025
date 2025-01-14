@@ -15,8 +15,7 @@ docker run -it \
   postgres:13
 ```
 
-
-> [!NOTE] Tips
+> [!NOTE]
 > If your container is already running, you can use `docker stop container_id/name` **to stop** the container from running. You could also **delete containers** using `docker rm cont_id/name`.
 
 
@@ -59,7 +58,9 @@ docker build -t taxi_ingest:1 .
 ```
 Then run the container you built
 
-> **Note**: *The host and port database here (previously localhost) was changed to connect to the dockerized sql container's name*
+> [!NOTE]
+> *The host and port database here (previously localhost) was changed to connect to the dockerized sql container's name*
+
 ```bash
 URL='https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz'
 
@@ -86,7 +87,7 @@ Create a service account in **Service Accounts** tab with the ff permissions:
 
 Go back to **Service Accounts** and click the ellipse > **Create New Key** to create a key for your account.
 
-> [!Warning] Important
+> [!WARNING]
 > Always save your keys in a secure way. A good practice is to keep your repo private. But if you want to publish your repo as public, `.gitignore` is your friend.
 
 [Terraform gitignore](https://github.com/github/gitignore/blob/main/Terraform.gitignore)
@@ -114,8 +115,7 @@ Host de-zoomcamp
   IdentityFile ~/.ssh/gcp
 ```
 
-
-> [!NOTE] Important
+> [!NOTE]
 > When using WSL, copy your `.ssh` folder to your Windows `.ssh`.
 
 Create a Compute Engine VM Instance to be used: ec2-standard with 4vCPU and 16GB ram with Ubuntu 20.04 LTS.

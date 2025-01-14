@@ -3,8 +3,9 @@ notes/week_1/.ipynb_checkpoints/
 notes/week_1/yellow_tripdata_2021-01.csv
 notes/week_1/yellow_tripdata_2021-01.csv.gz
 
-notes/week_1/ny_taxi_postgres_data/*
-!notes/week_1/ny_taxi_postgres_data/
+notes/week_1/data/ny_taxi_postgres_data/*
+
+homework/homework_1/data/ny_taxi_postgres_data/*
 
 # For python
 .venv/
