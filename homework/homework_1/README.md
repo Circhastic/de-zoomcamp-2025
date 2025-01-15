@@ -1,9 +1,15 @@
 ## Homework 1: Docker, SQL and Terraform for Data Engineering Zoomcamp 2025
 ### Question 1 - Understanding Docker first run
 
+```bash
+docker run -it python:3.12.8 bash
+pip list
+```
+
 Answer: `24.3.1`
 
 ### Question 2 - Understanding Docker networking and docker-compose
+Hostname is db as defined in the yml (not localhost) because docker uses the service names as hostnames, and the port to use is 5432, not 5433 (local docker port mapping?), for pgadmin connection since both containers exist on the same virtual network.
 
 Answer: `db:5432`
 
@@ -113,5 +119,6 @@ LIMIT 1;
 Answer: `JFK Airport`
 
 ### Question 7 - Terraform Workflow
+I just used the terraform config from my notes to practice and got the answers there.
 
 Answer: `terraform init, terraform apply -auto-approve, terraform destroy`
