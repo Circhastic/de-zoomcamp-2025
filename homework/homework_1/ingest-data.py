@@ -12,23 +12,31 @@ def main(params):
     port = params.port
     db = params.db
     table_name = params.table_name
-    url = params.url
-    csv_name = url.split("/")[-1]
+    table_name_lookup = params.table_name_lookup
 
     # download the csv
-    os.system(f'wget {url} -O {csv_name}')
+    url_data='https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz'
+    csv_name_data = url_data.split("/")[-1]
+
+    url_lookup='https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv'
+    csv_name_lookup = url_lookup.split("/")[-1]
+
+    os.system(f'wget {url_data} -O {csv_name_data}')
+    os.system(f'wget {url_lookup} -O {csv_name_lookup}')
 
     engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
 
-    df_iterator = pd.read_csv(csv_name, iterator=True, chunksize=100000)
-
+    # create the green taxi table
+    df_iterator = pd.read_csv(csv_name_data, iterator=True, chunksize=100000)
     df = next(df_iterator)
-
     df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
     df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
-
     df.head(n=0).to_sql(name=table_name, con=engine, if_exists='replace')
-    df.to_sql(name=table_name, con=engine, if_exists='append') # initial chunk rows insertion
+    df.to_sql(name=table_name, con=engine, if_exists='append') # initial chunk rows insertion for data
+
+    # create the lookup table
+    df_lookup = pd.read_csv(csv_name_lookup)
+    df_lookup.to_sql(name=table_name_lookup, con=engine, if_exists='append') # initial chunk rows insertion for lookup
 
     counter = 0
     time_counter = 0
@@ -58,14 +66,14 @@ def main(params):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Ingest csv data into postgres')
 
-    # user, password, host, port, database name, table name, url for the csv file
+    # user, password, host, port, database name, table names
     parser.add_argument('--user', help='user name for postgres')
     parser.add_argument('--password', help='password for postgres')
     parser.add_argument('--host', help='host name for postgres')
     parser.add_argument('--port', help='port for postgres')
     parser.add_argument('--db', help='db name for postgres')
-    parser.add_argument('--table_name', help='name of the table where we will write the results to')
-    parser.add_argument('--url', help='url for the csv file')
+    parser.add_argument('--table_name', help='name of the table where we will write the results of the data to')
+    parser.add_argument('--table_name_lookup', help='name of the table where we will write the results of the lookup to')
 
     args = parser.parse_args()
 

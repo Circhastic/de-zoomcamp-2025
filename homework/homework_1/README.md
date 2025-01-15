@@ -8,9 +8,10 @@ Answer: `24.3.1`
 Answer: `db:5432`
 
 ### Preparing Postgres
+[Data Dictionary](https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_green.pdf)
+
 ```bash
 docker build -t taxi_ingest:2 .
-URL='https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz'
 
 docker run -it \
 	--network=homework_1_default \
@@ -22,15 +23,35 @@ docker run -it \
 		--port=5432 \
 		--db=ny_green_taxi \
 		--table_name=green_taxi_trips \
-		--url=${URL}
+		--table_name_lookup=nyc_taxi_lookup
 ```
 
 ### Question 3 - Trip segemntation count
 ```sql
-hey man
+SELECT
+    COUNT(CASE 
+        WHEN trip_distance <= 1 THEN 1 
+    END) AS trips_1,
+    COUNT(CASE 
+        WHEN trip_distance > 1 AND trip_distance <= 3 THEN 1 
+    END) AS trips_1_to_3,
+    COUNT(CASE 
+        WHEN trip_distance > 3 AND trip_distance <= 7 THEN 1 
+    END) AS trips_3_to_7,
+    COUNT(CASE 
+        WHEN trip_distance > 7 AND trip_distance <= 10 THEN 1 
+    END) AS trips_7_to_10,
+    COUNT(CASE 
+        WHEN trip_distance > 10 THEN 1 
+    END) AS trips_10_plus
+FROM 
+    green_taxi_trips
+WHERE 
+    lpep_pickup_datetime::date >= '2019-10-01'
+    AND lpep_pickup_datetime::date < '2019-11-01';
 ```
 
-Answer: `In Progress`
+Answer: `104,838; 199,013; 109,645; 27,688; 35,202`
 
 ### Question 4 - Longest trip for each day
 ```sql
@@ -46,8 +67,51 @@ LIMIT 1;
 Answer: `2019-10-31`
 
 ### Question 5 - Three biggest pickup zones
+```sql
+SELECT
+	n."Zone",
+	SUM(g.total_amount) AS total_amount
+FROM
+	green_taxi_trips g
+JOIN
+	nyc_taxi_lookup n
+	ON g."PULocationID" = n."LocationID"
+WHERE
+	DATE(lpep_pickup_datetime) = '2019-10-18'
+GROUP BY
+	n."Zone"
+ORDER BY
+	total_amount DESC
+LIMIT 3;
+```
+Answer: `East Harlem North, East Harlem South, Morningside Heights`
 
 ### Question 6 - Largest tip
-need taxi lookup table for this
+```sql
+SELECT
+    pu_zone."Zone" AS pickup_zone,
+    do_zone."Zone" AS dropoff_zone,
+    g.tip_amount,
+    g."DOLocationID"
+FROM
+    green_taxi_trips g
+JOIN
+    nyc_taxi_lookup pu_zone
+    ON g."PULocationID" = pu_zone."LocationID"
+JOIN
+    nyc_taxi_lookup do_zone
+    ON g."DOLocationID" = do_zone."LocationID"
+WHERE
+    EXTRACT(MONTH FROM lpep_pickup_datetime::date) = 10
+    AND EXTRACT(YEAR FROM lpep_pickup_datetime::date) = 2019
+    AND pu_zone."Zone" = 'East Harlem North'
+ORDER BY
+    g.tip_amount DESC
+LIMIT 1;
+```
+
+Answer: `JFK Airport`
 
 ### Question 7 - Terraform Workflow
+
+Answer: `In Progress`
