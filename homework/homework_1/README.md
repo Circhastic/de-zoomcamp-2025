@@ -114,4 +114,4 @@ Answer: `JFK Airport`
 
 ### Question 7 - Terraform Workflow
 
-Answer: `In Progress`
+Answer: `terraform init, terraform apply -auto-approve, terraform destroy`
