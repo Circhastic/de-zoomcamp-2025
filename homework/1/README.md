@@ -1,4 +1,4 @@
-## Homework 1: Docker, SQL and Terraform for Data Engineering Zoomcamp 2025
+## Homework 1: Docker, SQL and Terraform
 ### Question 1 - Understanding Docker first run
 
 ```bash

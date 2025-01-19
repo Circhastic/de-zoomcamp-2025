@@ -1,11 +1,11 @@
 # For Ingestion Script
-notes/week_1/.ipynb_checkpoints/
-notes/week_1/yellow_tripdata_2021-01.csv
-notes/week_1/yellow_tripdata_2021-01.csv.gz
+notes/1/.ipynb_checkpoints/
+notes/1/yellow_tripdata_2021-01.csv
+notes/1/yellow_tripdata_2021-01.csv.gz
 
-notes/week_1/data/ny_taxi_postgres_data/*
+notes/1/data/ny_taxi_postgres_data/*
 
-homework/homework_1/data/ny_taxi_postgres_data/*
+homework/1/data/ny_taxi_postgres_data/*
 
 # For python
 .venv/
