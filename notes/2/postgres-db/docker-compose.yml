@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: kestra
+      POSTGRES_PASSWORD: k3str4
+      POSTGRES_DB: postgres-zoomcamp
+    volumes:
+      - "./data/postgres-data:/var/lib/postgresql/data"
+    ports:
+      - 5431:5432
