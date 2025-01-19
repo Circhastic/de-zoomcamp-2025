@@ -1,7 +1,7 @@
 # !!! IMPORTANT !!!
 # This is a sample file, MODIFY AT YOUR LOCAL MACHINE.
 
-id: gcp_kv
+id: 04_gcp_kv
 namespace: zoomcamp
 
 tasks:
