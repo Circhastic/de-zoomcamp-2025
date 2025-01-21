@@ -53,8 +53,8 @@ SELECT
 FROM 
     green_taxi_trips
 WHERE 
-    lpep_pickup_datetime::date >= '2019-10-01'
-    AND lpep_pickup_datetime::date < '2019-11-01';
+    lpep_pickup_datetime::date >= '2019-10-01 00:00:00'
+    AND lpep_pickup_datetime::date < '2019-11-01 00:00:00';
 ```
 
 Answer: `104,838; 199,013; 109,645; 27,688; 35,202`
