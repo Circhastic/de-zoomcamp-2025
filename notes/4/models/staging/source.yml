@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: staging
+    database: ny-taxi-rides-447209
+    schema: de_zoomcamp
+    tables:
+      - name: green_tripdata
+      - name: yellow_tripdata
