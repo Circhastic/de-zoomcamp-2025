@@ -32,7 +32,7 @@ docker run -it \
 		--table_name_lookup=nyc_taxi_lookup
 ```
 
-### Question 3 - Trip segemntation count
+### Question 3 - Trip segementation count
 ```sql
 SELECT
     COUNT(CASE 
@@ -53,11 +53,25 @@ SELECT
 FROM 
     green_taxi_trips
 WHERE 
-    lpep_pickup_datetime::date >= '2019-10-01 00:00:00'
-    AND lpep_pickup_datetime::date < '2019-11-01 00:00:00';
+    lpep_pickup_datetime >= '2019-10-01'
+    AND lpep_pickup_datetime < '2019-11-01';
 ```
 
 Answer: `104,838; 199,013; 109,645; 27,688; 35,202`
+
+**Correct Answer:** `104,802; 198,924; 109,603; 27,678; 35,189`
+
+Note the term *"trips happened"*
+
+```sql
+SELECT
+    ...
+WHERE 
+    lpep_pickup_datetime >= '2019-10-01'
+    AND lpep_pickup_datetime < '2019-11-01'
+    AND lpep_dropoff_datetime >= '2019-10-01'
+    AND lpep_dropoff_datetime < '2019-11-01';
+```
 
 ### Question 4 - Longest trip for each day
 ```sql
