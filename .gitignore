@@ -7,6 +7,9 @@ notes/1/data/ny_taxi_postgres_data/*
 
 homework/1/data/ny_taxi_postgres_data/*
 
+# random directories
+notes/5/code/fhvhv/*
+
 # For python
 .venv/
 .ipynb_checkpoints/
