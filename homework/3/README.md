@@ -68,14 +68,17 @@ Use the materialized table you created earlier in your from clause and note the 
 
 Choose the answer which most closely matches.
 
+```sql
 SELECT DISTINCT(VendorID)
 FROM `ny-taxi-rides-447209.de_zoomcamp.yellow_taxidata_2024`
 WHERE
   tpep_dropoff_datetime >= '2024-03-01'
   AND tpep_dropoff_datetime <= '2024-03-15';
+```
 
 **310.24** MB for Non-parititoned table
 
+```sql
 SELECT DISTINCT(VendorID)
 FROM `ny-taxi-rides-447209.de_zoomcamp.yellow_taxidata_2024_part`
 WHERE
@@ -83,6 +86,7 @@ WHERE
   AND tpep_dropoff_datetime <= '2024-03-15';
 
 **26.84 MB** for Partitioned table
+```
 
 Answer: `310.24 MB for non-partitioned table and 26.84 MB for the partitioned table`
 
