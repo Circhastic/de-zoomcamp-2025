@@ -14,7 +14,7 @@ Other Data Warehousing Services
 - Avoid `SELECT *` to reduce columns to display.
 - Price your queries before running.
 - Use clustered and/or partitioned tables if possible.
-- Use streaming inserts with cuation.
+- Use streaming inserts with caution.
 - Materialize query results in stages.
 
 **Query Performance**
