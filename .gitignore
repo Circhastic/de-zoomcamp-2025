@@ -9,6 +9,7 @@ homework/1/data/ny_taxi_postgres_data/*
 
 # random directories
 notes/5/code/fhvhv/*
+notes/5/code/data/*
 
 # For python
 .venv/
