@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: staging
     database: ny-taxi-rides-447209
-    schema: de_zoomcamp
+    schema: de_zoomcamp_dbt
       # loaded_at_field: record_loaded_at
     tables:
       - name: green_tripdata
