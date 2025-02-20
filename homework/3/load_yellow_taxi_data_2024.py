@@ -8,7 +8,7 @@ import time
 BUCKET_NAME = "kestra-zoomcamp-bucket" # change this bucket name
 
 #If you authenticated through the GCP SDK you can comment out these two lines
-CREDENTIALS_FILE = "creds.json"  
+CREDENTIALS_FILE = "../../creds.json"  
 client = storage.Client.from_service_account_json(CREDENTIALS_FILE)
 
 
