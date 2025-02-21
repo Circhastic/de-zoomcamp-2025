@@ -1,8 +1,8 @@
 # Homework 4: Analytics Engineering using DBT
-https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2025/04-analytics-engineering/homework.md
+[Questions](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2025/04-analytics-engineering/homework.md)
 
 ## Question 1: Understanding dbt model resolution
-From the `schema: "{{ env_var('DBT_BIGQUERY_SOURCE_DATASET', 'raw_nyc_tripdata') }}"`, it uses "DBT_BIGQUERY_SOURCE_DATASET", instead of the defined environment variable "DBT_BIGQUERY_DATASET", so it uses the fallback value "raw_nyc_tripdata"
+From the `schema: "{{ env_var('DBT_BIGQUERY_SOURCE_DATASET', 'raw_nyc_tripdata') }}"`, it uses `DBT_BIGQUERY_SOURCE_DATASET`, instead of the defined environment variable `DBT_BIGQUERY_DATASET`, so it uses the fallback value "raw_nyc_tripdata"
 
 Answer: `select * from myproject.raw_nyc_tripdata.ext_green_taxi`
 
@@ -28,7 +28,7 @@ Answers:
 - When using staging, it materializes in the dataset defined in DBT_BIGQUERY_STAGING_DATASET, or defaults to DBT_BIGQUERY_TARGET_DATASET
 ```
 
-this is assuming if `DBT_BIGQUERY_TARGET_DATASET` is defind for option 2 and `DBT_BIGQUERY_STAGING_DATASET` is also defined for options 3 & 4, since they essentially fall in the same condition and logic, otherwise would be false.
+this is assuming if `DBT_BIGQUERY_TARGET_DATASET` is defined for option 2 and `DBT_BIGQUERY_STAGING_DATASET` is also defined for options 3 & 4, since they essentially fall in the same condition and logic, otherwise would be false.
 
 ## Question 5: Taxi Quarterly Revenue Growth
 
@@ -99,6 +99,8 @@ Query Output: Q1 Best, Q2 Worst
 Answer: `green: {best: 2020/Q1, worst: 2020/Q2}, yellow: {best: 2020/Q1, worst: 2020/Q2}`
 
 ## Question 6: P97/P95/P90 Taxi Monthly Fare
+
+continue this
 
 
 ## Question 7: Top #Nth longest P90 travel time Location for FHV

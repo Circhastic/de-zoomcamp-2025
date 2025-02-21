@@ -1,4 +1,5 @@
 ## Homework 3: Data Warehousing 
+[Questions](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2025/03-data-warehouse/homework.md)
 
 ### Question 1: 
 What is count of records for the 2024 Yellow Taxi Data?
