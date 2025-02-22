@@ -49,15 +49,26 @@ def web_to_gcs(year, service):
         print(f"Local: {file_name}")
 
         # read it back into a parquet file
-        # df = pd.read_csv(file_name, compression='gzip')
-        # file_name = file_name.replace('.csv.gz', '.parquet')
-        # df.to_parquet(file_name, engine='pyarrow')
-        # print(f"Parquet: {file_name}")
+        if (service == 'fhv'):
+            df = pd.read_csv(file_name, compression='gzip').astype({
+                "dispatching_base_num": "string",
+                "pickup_datetime": "datetime64[s]",
+                "dropOff_datetime": "datetime64[s]",
+                "PUlocationID": "Int64",
+                "DOlocationID": "Int64",
+                "SR_Flag": "string",
+                "Affiliated_base_number": "string"
+            })
+
+            file_name = file_name.replace('.csv.gz', '.parquet')
+            df.to_parquet(file_name, engine='pyarrow')
+            print(f"Parquet: {file_name}")
 
         # upload it to gcs 
         upload_to_gcs(BUCKET, f"{service}/{file_name}", file_name)
         print(f"GCS: {service}/{file_name}")
 
+# Choose fhv or green/yellow
 
 # web_to_gcs('2019', 'green')
 # web_to_gcs('2020', 'green')
