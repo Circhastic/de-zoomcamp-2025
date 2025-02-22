@@ -55,9 +55,9 @@ For green quarterly revenues:
 ```sql
 SELECT 
   quarter,
-  ROUND ((SUM(CASE WHEN year = 2020 THEN total_revenue ELSE 0 END) - 
-  SUM(CASE WHEN year = 2019 THEN total_revenue ELSE 0 END)) * 100 /
-  SUM(CASE WHEN year = 2019 THEN total_revenue ELSE 0 END), 2) AS yoy_percent_difference
+  ROUND (((SUM(CASE WHEN year = 2020 THEN total_revenue ELSE 0 END) - 
+  SUM(CASE WHEN year = 2019 THEN total_revenue ELSE 0 END)) /
+  SUM(CASE WHEN year = 2019 THEN total_revenue ELSE 0 END)) * 100, 2) AS yoy_percent_difference
 FROM
   `ny-taxi-rides-447209.de_zoomcamp_dbt.fct_trips_quarterly_revenue`
 WHERE
@@ -72,8 +72,8 @@ ORDER BY
 Query Output: Q1 Best, Q2 Worst
 | Quarter | Value  |
 |---------|--------|
-| Q1      | -55.97 |
-| Q2      | -92.69 |
+| Q1      | -55.96 |
+| Q2      | -92.68 |
 | Q3      | -86.44 |
 | Q4      | -84.25 |
 
@@ -99,8 +99,41 @@ Query Output: Q1 Best, Q2 Worst
 Answer: `green: {best: 2020/Q1, worst: 2020/Q2}, yellow: {best: 2020/Q1, worst: 2020/Q2}`
 
 ## Question 6: P97/P95/P90 Taxi Monthly Fare
+[Using Percentail Cont](https://cloud.google.com/bigquery/docs/reference/standard-sql/navigation_functions#percentile_cont)
 
-continue this
+```sql
+WITH trip_percentiles AS (SELECT
+    service_type,
+    PERCENTILE_CONT(fare_amount, 0.97) OVER(PARTITION BY service_type, year, month) AS p97,
+    PERCENTILE_CONT(fare_amount, 0.95) OVER(PARTITION BY service_type, year, month) AS p95,
+    PERCENTILE_CONT(fare_amount, 0.90) OVER(PARTITION BY service_type, year, month) AS p90
+  FROM {{ ref('fact_trips') }}
+  WHERE
+      year = 2020
+      AND month = 4
+      AND fare_amount > 0
+      AND trip_distance > 0
+      AND payment_type_description IN ('Cash', 'Credit card'))
+
+SELECT
+  service_type,
+  ROUND(ANY_VALUE(p97), 2) AS p97,
+  ROUND(ANY_VALUE(p95), 2) AS p95,
+  ROUND(ANY_VALUE(p90), 2) AS p90
+FROM trip_percentiles
+GROUP BY service_type
+ORDER BY service_type
+```
+
+Query Output:
+| service_type | p97  | p95  | p90  |
+|-------------|------|------|------|
+| Green       | 55.0 | 45.0 | 26.5 |
+| Yellow      | 32.0 | 26.0 | 19.5 |
+
+Answer: `green: {p97: 55.0, p95: 45.0, p90: 26.5}, yellow: {p97: 31.5, p95: 25.5, p90: 19.0}`
 
 
 ## Question 7: Top #Nth longest P90 travel time Location for FHV
+
+continue this

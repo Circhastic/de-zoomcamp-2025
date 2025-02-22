@@ -56,12 +56,6 @@ all_tripdata as (
     on trips_unioned.pickup_locationid = pickup_zone.locationid
     inner join dim_zones as dropoff_zone
     on trips_unioned.dropoff_locationid = dropoff_zone.locationid
-
-    where
-        EXTRACT(YEAR FROM pickup_datetime) >= 2019
-        AND EXTRACT(YEAR FROM dropoff_datetime) >= 2019
-        AND EXTRACT(YEAR FROM pickup_datetime) <= 2020
-        AND EXTRACT(YEAR FROM dropoff_datetime) <= 2020
 ),
 
 extract_date AS (
@@ -83,3 +77,4 @@ SELECT
   *,
   CONCAT(year, '/', quarter) AS year_quarter
 FROM extract_date
+WHERE year IN (2019, 2020)
