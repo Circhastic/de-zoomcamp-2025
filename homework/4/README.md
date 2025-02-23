@@ -99,7 +99,7 @@ Query Output: Q1 Best, Q2 Worst
 Answer: `green: {best: 2020/Q1, worst: 2020/Q2}, yellow: {best: 2020/Q1, worst: 2020/Q2}`
 
 ## Question 6: P97/P95/P90 Taxi Monthly Fare
-[Using Percentail Cont](https://cloud.google.com/bigquery/docs/reference/standard-sql/navigation_functions#percentile_cont)
+[Using Percentile Cont](https://cloud.google.com/bigquery/docs/reference/standard-sql/navigation_functions#percentile_cont)
 
 ```sql
 WITH trip_percentiles AS (SELECT
@@ -135,5 +135,61 @@ Answer: `green: {p97: 55.0, p95: 45.0, p90: 26.5}, yellow: {p97: 31.5, p95: 25.5
 
 
 ## Question 7: Top #Nth longest P90 travel time Location for FHV
+[Timestamp Diff](https://cloud.google.com/bigquery/docs/reference/standard-sql/timestamp_functions#timestamp_diff)
 
-continue this
+New Model
+```sql
+WITH trips_duration AS (SELECT
+  pickup_locationid,
+  pickup_zone,
+  dropoff_locationid,
+  dropoff_zone,
+  year,
+  month,
+  TIMESTAMP_DIFF(dropoff_datetime, pickup_datetime, SECOND) AS trip_duration
+FROM
+  {{ ref('dim_fhv_trips') }}
+),
+```
+
+Query:
+```sql
+
+  SELECT
+    pickup_zone,
+    dropoff_zone,
+    PERCENTILE_CONT(trip_duration, 0.9) OVER(PARTITION BY year, month, pickup_locationid, dropoff_locationid) AS p90
+  FROM trips_duration
+  WHERE
+    year = 2019
+    AND month = 11
+    AND pickup_zone IN ('Newark Airport', 'SoHo', 'Yorkville East')
+  ORDER BY
+    pickup_zone,
+    p90 DESC
+),
+
+deduplicated_p90_duration AS (
+  SELECT
+    pickup_zone,
+    dropoff_zone,
+    ANY_VALUE(p90) AS p90,
+    RANK() OVER(PARTITION BY pickup_zone ORDER BY ANY_VALUE(p90) DESC) AS p90_rank
+  FROM
+    p90_duration
+  GROUP BY
+    pickup_zone,
+    dropoff_zone
+  ORDER BY
+    pickup_zone,
+    p90_rank
+)
+
+SELECT
+  pickup_zone,
+  dropoff_zone,
+FROM deduplicated_p90_duration
+WHERE p90_rank = 2
+```
+
+Answer: `LaGuardia Airport, Chinatown, Garment District`

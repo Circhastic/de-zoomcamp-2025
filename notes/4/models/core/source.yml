@@ -166,8 +166,12 @@ models:
 
   - name: fct_trips_quarterly_revenue
     description: >
-      "lol"
+      "for homework 4 Q6"
 
   - name: fct_trips_monthly_fare_p95
     description: >
-      "lmao"
+      "for homework 4 Q6"
+  
+  - name: fct_fhv_monthly_zone_traveltime_p90
+    description: >
+      "for homework 4 Q7"
