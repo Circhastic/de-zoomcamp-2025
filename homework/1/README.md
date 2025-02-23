@@ -1,4 +1,7 @@
 ## Homework 1: Docker, SQL and Terraform
+[Questions](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2025/01-docker-terraform/homework.md)
+
+
 ### Question 1 - Understanding Docker first run
 
 ```bash

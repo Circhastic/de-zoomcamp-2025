@@ -9,5 +9,7 @@ Data Lake - for storing structured and unstructured raw data (i.e. Google Cloud 
 
 Data Warehouse - for storing processed and clean data for querying.
 
+MD5 Hash - useful for creating unique row ids, especially useful for backfilling
+
 > [!NOTE]
 > You can also use Airflow for workflow orchestration, however for 2025, it has recently been switched to Kestra as it much easier setting up out-of-the-box (so far, I think).

@@ -127,3 +127,51 @@ models:
       - name: payment_type_description
         data_type: string
         description: ""
+
+  - name: dim_fhv_trips
+    description: "Model for FHV trip data, enriched with pickup and dropoff zone details."
+    columns:
+      - name: dispatching_base_num
+        description: "The base number associated with the dispatching service."
+      
+      - name: pickup_locationid
+        description: "The location ID for the trip's pickup point."
+
+      - name: pickup_borough
+        description: "The borough where the trip was picked up."
+
+      - name: pickup_zone
+        description: "The taxi zone where the trip was picked up."
+
+      - name: pickup_datetime
+        description: "Timestamp indicating when the trip was picked up."
+
+      - name: dropoff_locationid
+        description: "The location ID for the trip's dropoff point."
+
+      - name: dropoff_borough
+        description: "The borough where the trip was dropped off."
+
+      - name: dropoff_zone
+        description: "The taxi zone where the trip was dropped off."
+
+      - name: dropoff_datetime
+        description: "Timestamp indicating when the trip was dropped off."
+
+      - name: sr_flag
+        description: "Service request flag, indicating if the trip was requested in advance."
+
+      - name: affiliated_base_number
+        description: "The base number affiliated with the trip service."
+
+  - name: fct_trips_quarterly_revenue
+    description: >
+      "for homework 4 Q6"
+
+  - name: fct_trips_monthly_fare_p95
+    description: >
+      "for homework 4 Q6"
+  
+  - name: fct_fhv_monthly_zone_traveltime_p90
+    description: >
+      "for homework 4 Q7"

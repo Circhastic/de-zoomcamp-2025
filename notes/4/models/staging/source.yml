@@ -8,6 +8,7 @@ sources:
     tables:
       - name: green_tripdata
       - name: yellow_tripdata
+      - name: fhv_tripdata
          # freshness:
            # error_after: {count: 6, period: hour}
 
@@ -194,3 +195,28 @@ models:
             description: Total amount of all tolls paid in trip.
           - name: Total_amount 
             description: The total amount charged to passengers. Does not include cash tips.
+
+    - name: stg_fhv_tripdata
+      description: >
+        "Staging model for For-Hire Vehicle (FHV) trip data in NYC, sourced from the TLC dataset."
+      columns:
+        - name: dispatching_base_num
+          description: "Unique identifier for the base that dispatched the trip."
+
+        - name: pickup_datetime
+          description: "Timestamp when the passenger was picked up."
+
+        - name: dropoff_datetime
+          description: "Timestamp when the passenger was dropped off."
+
+        - name: pickup_locationid
+          description: "Pickup location ID based on the NYC TLC Taxi Zone Map."
+
+        - name: dropoff_locationid
+          description: "Dropoff location ID based on the NYC TLC Taxi Zone Map."
+
+        - name: sr_flag
+          description: "Shared ride flag. Indicates if the trip was a shared ride (1) or not (0)."
+
+        - name: affiliated_base_number
+          description: "The base number with which the FHV is affiliated."
