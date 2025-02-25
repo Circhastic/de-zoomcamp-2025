@@ -2,16 +2,17 @@
 notes/1/.ipynb_checkpoints/
 notes/1/yellow_tripdata_2021-01.csv
 notes/1/yellow_tripdata_2021-01.csv.gz
-
 notes/1/data/ny_taxi_postgres_data/*
 
-homework/1/data/ny_taxi_postgres_data/*
-
-# random directories
 notes/5/code/fhvhv/*
 notes/5/code/tmp/*
 notes/5/code/zones/*
 notes/5/code/data/*
+
+homework/1/data/ny_taxi_postgres_data/*
+homework/5/data/*
+
+*.parquet
 
 # For python
 .venv/
