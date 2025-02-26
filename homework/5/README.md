@@ -42,9 +42,22 @@ df \
 Answer: `162`
 
 ## Question 5: User Interface
+Using `localhost:4040` opens up the Spark Master UI
 
 Answer: `4040`
 
 ## Question 6: Least frequent pickup location zone
+```python
+# combine taxi data with lookup table
+df_join = df.join(df_zone, df.PULocationID == df_zone.LocationID, how='inner')
 
-Answer: ``
+# least ranking
+df_join.groupBy("Zone") \
+    .count() \
+    .withColumnRenamed("count", "trip_frequency") \
+    .orderBy("trip_frequency", ascending=True) \
+    .limit(1) \
+    .show()
+```
+
+Answer: `Governor's Island/Ellis Island/Liberty Island`
